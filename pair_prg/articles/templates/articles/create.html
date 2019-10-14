@@ -1,0 +1,8 @@
+{% extends 'articles/base.html' %}
+{% block body %}
+<form action="{% url 'articles:create' %}" method="POST">
+  {% csrf_token %}
+  {{form.as_table}}
+  <input type="submit" value="작성하기">
+</form>
+{% endblock %}

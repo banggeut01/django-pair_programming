@@ -1,0 +1,23 @@
+{% extends 'articles/base.html' %}
+{% block body %}
+<a href="{% url 'articles:index' %}">집으로가자</a>
+<h1>{{ article.pk }} {{ article.title }}</h1>
+<h2>{{ article.content }}</h2>
+<h3>{{article.created_at}}</h3>
+<h3>{{article.updated_at}}</h3>
+<a href="{% url 'articles:update' article.pk %}">수정하기</a>
+<a href="{% url 'articles:delete' article.pk %}">삭제하기</a>
+
+<p>댓글작성</p>
+
+<form action="{% url 'articles:comment_create' article.pk %}" method="POST">
+  {% csrf_token %}
+  {{comment_form.as_table}}
+  <input type="submit" value="작성하기">
+</form>
+{% for comment in comments %}
+<p>{{ comment.pk }} => {{ comment.name }} : {{ comment.content }} <a href="{% url 'articles:comment_delete' comment.pk %}">댓삭</a></p>
+<br>
+
+{% endfor %}
+{% endblock %}
