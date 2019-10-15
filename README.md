@@ -230,3 +230,6 @@
   comment.article = article # 내가 직접
   comment_form.save() # DB에 쿼리
   ```
+
+* 다른 사람 코드를 받았을 때, migrate를 제일 먼저 해야한다.
+  * migrations은 이미 만들어져 있음
