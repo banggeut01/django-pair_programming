@@ -44,6 +44,8 @@
   ]
   ```
 
+  **'articles.urls'를 넣겠다.**
+
 * articles > urls.py 만들기
 
   ```python
@@ -59,6 +61,9 @@
 
   여기까지 하면 오류가 뜬다. => 정상
 
+  **from django.urls import path
+  from . import views**
+
 * views.py
 
   ```python
@@ -72,6 +77,12 @@
       # render(request, 템플릿의 위치, (넘길값))
       return render(request, 'articles/index.html', context) 
   ```
+
+  **'articles/index.html' 절대 경로가 아님에 주의하자! views가 있는 곳의 articles'**
+
+  **from models가 아닌 .models임에 주의하자! **
+
+  **object가 아닌 objects!!** 오브젝트들... 하나의 오브젝트가 아니다.
 
 * 템플릿 만들기 articles > templates > articles > index.html
 
@@ -117,6 +128,10 @@
       </h1>
     {% endblock %}
     ```
+    
+    extend**s** 주의
+    
+    **'articles/base.html'절대 경로 아님에 주의!** 
 
 * urls.py
 
@@ -142,6 +157,18 @@
           model = Article # Article 모델 import 했는지
           fields = ('title', 'content')
   ```
+
+  **forms.Form이 아닌 forms.ModelForm**
+
+  **from django import forms**
+
+  **from .models import Article**
+
+  **class Meta():m class meta가 아닌 class Meta:**
+
+  **model = Article** 
+
+  
 
 * views.py
 
@@ -193,6 +220,22 @@
   * redirect vs render
     * 가장 큰 차이점은 render는 그렇게 보이는 '척'을 하는 것이다.
     * redirect를 통해 해당 경로로 보내는 것이 좋다.
+    
+  * **request.method**
+
+  * **article_form = ArticleForm(request.POST)**
+
+  * **article_form.is_valid()**
+
+  * **article = article_form.save()**
+
+  * **redircet(request, 'articles:index')가 아닌 redirect('articles:index')**
+
+  * ##오류
+
+    * ```
+      'ArticleForm' object has no attribute 'cleaned_data'
+      ```
 
 * update 작성, #: create와 비교해 다른 곳
 
@@ -232,4 +275,5 @@
   ```
 
 * 다른 사람 코드를 받았을 때, migrate를 제일 먼저 해야한다.
+  
   * migrations은 이미 만들어져 있음
